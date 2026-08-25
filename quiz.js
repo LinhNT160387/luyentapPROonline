@@ -275,7 +275,49 @@ function renderCurrentQuestion() {
 	const rawSubject = String(q.subject || '').toLowerCase();
 	const displaySubject = SUBJECT_MAP[rawSubject] || q.subject || 'N/A';
 	
-    // Xây dựng giao diện hiển thị
+	// --- XỬ LÝ PHẦN MEDIA (Hình ảnh, Âm thanh, Video, YouTube) ---
+    let mediaHtml = '<div class="media-container" style="margin: 15px 0;">';
+	if (q.media && Array.isArray(q.media) && q.media.length > 0) {
+        q.media.forEach(m => {
+            if (m.type === 'image') {
+                mediaHtml += `<img src="${m.url}" alt="Question Image" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; display: block; margin-top: 10px;">`;
+            } else if (m.type === 'audio') {
+                let audioUrl = m.url || '';
+                if (audioUrl.includes('drive.google.com')) {
+                    let fileId = "";
+                    if (audioUrl.includes('id=')) {
+                        fileId = audioUrl.split('id=')[1].split('&')[0];
+                    } else if (audioUrl.includes('/file/d/')) {
+                        fileId = audioUrl.split('/file/d/')[1].split('/')[0];
+                    }
+                    
+                    if (fileId) {
+                        mediaHtml += `<iframe src="https://drive.google.com/file/d/${fileId}/preview" style="width: 100%; height: 80px; margin-top: 10px; border: none; border-radius: 8px;" allow="autoplay"></iframe>`;
+                    } else {
+                        mediaHtml += `<audio controls style="width: 100%; margin-top: 10px;"><source src="${audioUrl}" type="audio/mpeg"></audio>`;
+                    }
+                } else {
+                    mediaHtml += `<audio controls style="width: 100%; margin-top: 10px;"><source src="${audioUrl}" type="audio/mpeg"></audio>`;
+                }
+            } else if (m.type === 'video') {
+                mediaHtml += `<video controls style="width: 100%; margin-top: 10px; border-radius: 6px;"><source src="${m.url}" type="video/mp4"></video>`;
+            } else if (m.type === 'iframe') {
+                let finalUrl = m.url || '';
+                if (finalUrl.includes('youtu.be/')) {
+                    let videoId = finalUrl.split('youtu.be/')[1].split('?')[0];
+                    finalUrl = `https://www.youtube.com/embed/${videoId}`;
+                } else if (finalUrl.includes('youtube.com/watch?v=')) {
+                    let videoId = finalUrl.split('v=')[1].split('&')[0];
+                    finalUrl = `https://www.youtube.com/embed/${videoId}`;
+                }
+                mediaHtml += `<iframe src="${finalUrl}" style="width: 100%; aspect-ratio: 16/9; margin-top: 10px; border: none; border-radius: 8px;" allowfullscreen></iframe>`;
+            }
+        });
+    }
+    mediaHtml += '</div>';
+    // -------------------------------------------------------------
+	
+// Xây dựng giao diện hiển thị hoàn chỉnh
     container.innerHTML = `
         <div style="background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             
@@ -301,6 +343,9 @@ function renderCurrentQuestion() {
             <!-- Nội dung câu hỏi -->
             <p style="font-size: 16px; font-weight: 500; color: #1f2937; line-height: 1.5;">${q.content}</p>
 
+            <!-- Hiển thị Media (Ảnh, Audio, Video, Iframe) -->
+            ${mediaHtml}
+
             <!-- Khu vực làm bài (Nhập đáp án tự luận hoặc chọn trắc nghiệm) -->
             <div style="margin-top: 20px;">
                 <textarea id="student-answer-input" oninput="saveCurrentAnswer('${q.id}')" placeholder="Nhập câu trả lời của bạn vào đây..." style="width: 100%; height: 120px; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 14px; box-sizing: border-box;">${savedAnswer}</textarea>
@@ -318,14 +363,14 @@ function renderCurrentQuestion() {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
                 <button onclick="prevQuestion()" style="background: ${currentQuestionIndex === 0 ? '#9ca3af' : '#4b5563'}; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: ${currentQuestionIndex === 0 ? 'not-allowed' : 'pointer'};" ${currentQuestionIndex === 0 ? 'disabled' : ''}>⬅️ Câu trước</button>
                 
-                <!-- Nút Nộp Bài đặc biệt -->
                 <button onclick="submitExam()" style="background: #dc2626; color: white; border: none; padding: 8px 20px; font-weight: bold; border-radius: 4px; cursor: pointer;">📥 Nộp Bài</button>
 
                 <button onclick="nextQuestion()" style="background: ${currentQuestionIndex === totalQuestions - 1 ? '#9ca3af' : '#2563eb'}; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: ${currentQuestionIndex === totalQuestions - 1 ? 'not-allowed' : 'pointer'};" ${currentQuestionIndex === totalQuestions - 1 ? 'disabled' : ''}>Câu sau ➡️</button>
             </div>
 
         </div>
-    `;
+    `;	
+	
 	// Tính thời gian và kích hoạt đồng hồ bằng setTimeout để tránh lỗi DOM chưa render kịp
     examTimeLeft = getQuestionTimeInSeconds(q);
     setTimeout(() => {
