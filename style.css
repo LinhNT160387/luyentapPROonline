@@ -1,0 +1,15 @@
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+body { margin: 0; background-color: #f4f7f6; color: #333; }
+.top-bar { background: #2c3e50; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+.filters select, .filters button { padding: 8px; margin-left: 10px; border-radius: 4px; border: none; }
+.filters button { background: #3498db; color: white; cursor: pointer; font-weight: bold; }
+.container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+
+.question-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; position: relative;}
+.badge { position: absolute; top: 15px; right: 20px; background: #e74c3c; color: white; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;}
+.media-container img { max-width: 100%; height: auto; border: 1px solid #ddd; margin-top: 10px; border-radius: 5px;}
+
+.action-btn { background: #e67e22; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 15px; width: 100%;}
+.action-btn:hover { background: #d35400; }
+
+.hint-section { margin-top: 15px; padding: 15px; background: #fdf2e9; border-left: 4px solid #e67e22; display: none; }
