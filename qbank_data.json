@@ -1118,5 +1118,693 @@
     ],
     "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
     "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0055",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0055.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0056",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0056.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0057",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 2,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0057.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0058",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0058.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0059",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0059.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0060",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 3,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0060.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0061",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 9,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0061.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0062",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0062.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0063",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 3,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0063.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0064",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0064.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0065",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0065.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0066",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 7,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0066.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0067",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 3,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0067.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0068",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0068.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0069",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0069.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0070",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0070.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0071",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 8,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0071.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0072",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 7,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0072.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0073",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0073.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0074",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 7,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0074.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0075",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0075.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0076",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0076.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0077",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0077.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0078",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0078.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0079",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 8,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0079.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0080",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 8,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0080.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0081",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0081.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0082",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0082.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0083",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0083.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0084",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 2,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0084.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0085",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0085.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0086",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0086.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0087",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 3,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0087.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0088",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0088.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0089",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0089.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0090",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 9,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0090.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0091",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0091.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0092",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0092.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0093",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0093.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0094",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 7,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0094.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0095",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 6,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0095.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0096",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 4,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0096.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
+  },
+  {
+    "id": "Math_5_advGeo_0097",
+    "subject": "math",
+    "grade": 5,
+    "topic": "advGeometry",
+    "level": 5,
+    "type": "w",
+    "media": [
+      {
+        "type": "image",
+        "url": "assets/images/math/05/Math_5_advGeo_0097.jpg"
+      }
+    ],
+    "content": "Quan sát hình vẽ và thực hiện yêu cầu.",
+    "hint": "Giáo viên chưa cập nhật gợi ý làm bài."
   }
 ]
