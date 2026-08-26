@@ -3,75 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Tự Luyện - Luyện Tập Pro</title>
-    <!-- Bạn có thể thêm file style.css của mình vào đây -->
-    <link rel="stylesheet" href="style.css">
+    <title>Đăng nhập hệ thống</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-box {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #1d4ed8; }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; background: #f3f4f6; margin: 0; padding: 20px;">
-    
-    <header style="background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px;">
-        <h1 style="margin: 0 0 15px 0; font-size: 22px; color: #1f2937;">Luyện Tập Pro - Bộ Lọc Combo</h1>
+<body>
 
-        <!-- Thanh công cụ bộ lọc đa chiều -->
-        <div class="filters" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
-            
-            <!-- 1. Lọc Môn học (Chọn nhiều) -->
-            <div>
-                <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #374151;">Môn học:</label>
-                <select id="subject-filter" multiple style="height: 80px; width: 140px; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="all">Tất cả môn học</option>
-                </select>
-            </div>
-
-            <!-- 2. Lọc Lớp (Chọn nhiều) -->
-            <div>
-                <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #374151;">Khối lớp:</label>
-                <select id="grade-filter" multiple style="height: 80px; width: 110px; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="all">Tất cả lớp</option>
-                </select>
-            </div>
-
-            <!-- 3. Lọc Chủ đề (Chọn nhiều) -->
-            <div>
-                <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #374151;">Chủ đề:</label>
-                <select id="topic-filter" multiple style="height: 80px; width: 150px; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="all">Tất cả chủ đề</option>
-                </select>
-            </div>
-
-            <!-- 4. Lọc Level (Chọn nhiều) -->
-            <div>
-                <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #374151;">Độ khó (Level):</label>
-                <select id="level-filter" multiple style="height: 80px; width: 110px; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="all">Tất cả độ khó</option>
-                </select>
-            </div>
-
-            <!-- 5. Lọc Loại câu hỏi (Chọn nhiều) -->
-            <div>
-                <label style="display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; color: #374151;">Loại câu hỏi:</label>
-                <select id="type-filter" multiple style="height: 80px; width: 110px; padding: 4px; border-radius: 4px; border: 1px solid #ccc;">
-                    <option value="all">Tất cả loại</option>
-                    <option value="w">Tự luận (w)</option>
-                    <option value="mc">Trắc nghiệm (mc)</option>
-                </select>
-            </div>
-
-            <!-- Nút bấm thực hiện lọc (Gọi đúng hàm handleAdvancedFilter như code quiz_2.js) -->
-            <div>
-                <button type="button" onclick="handleAdvancedFilter()" style="background: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 4px; cursor: pointer; font-weight: bold; height: 38px;">Lọc Bài Tập</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Khung hiển thị danh sách câu hỏi -->
-    <main id="quiz-container" style="max-width: 800px; margin: 0 auto;">
-        <p style="text-align:center; padding: 40px; color: #6b7280; font-size: 16px;">
-            Hãy chọn các tiêu chí combo phía trên (giữ phím Ctrl để chọn nhiều mục) và bấm nút <strong>"Lọc Bài Tập"</strong>.
-        </p>
-    </main>
-
-    <!-- Nhúng file quiz_2.js vào đây -->
-    <script src="quiz.js"></script>
-</body>
+    <div class="login-box">
+        <h2 style="color: #4338ca; margin-top: 0;">👋 Xin chào!</h2>
+        <p style="color: #6b7280; font-size: 14px; margin-bottom: 20px;">Vui lòng đăng nhập để tiếp tục</p>
+        
+        <!-- Form nhập giả vờ cho đẹp -->
+        <input type="text" placeholder="Tên đăng nhập (Test)" value="HocSinhTest01">
+        <input type="password" placeholder="Mật khẩu" value="123456">
+        
+        <!-- Nút chuyển thẳng sang Dashboard -->
+        <button onclick="window.location.href='dashboard.html'">Đăng nhập</button>
+    </div>
+	<!-- Script dọn dẹp bộ nhớ ở file index.html -->
+    <script>
+        // 1. Xóa cấu hình của phiên đăng nhập trước (Tên, Số lượng câu)
+        sessionStorage.clear();
+        
+        // 2. XÓA BÓNG MA THỜI GIAN của học sinh trước (nếu họ bỏ thi giữa chừng)
+        // 'quiz_global_end_time' chính là chìa khóa (key) mà DualTimer dùng để lưu trữ
+        localStorage.removeItem('quiz_global_end_time');
+        
+        console.log("Đã dọn dẹp sạch sẽ Session và Local Storage. Máy sẵn sàng cho người mới!");
+    </script></body>
 </html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Học Sinh</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .btn-start {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-start:hover { background: #15803d; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 style="color: #4338ca; margin-top: 0;">🏠 Dashboard Trang Chủ</h1>
+        <p style="color: #374151; font-size: 16px;">Chào mừng <strong>Học Sinh Test</strong> đã quay trở lại!</p>
+        
+        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;">
+        
+        <h3 style="color: #1f2937;">Cấu hình Bài thi</h3>
+        <p style="color: #6b7280; font-size: 14px;">Bạn muốn làm tối đa bao nhiêu câu trong lần thi này?</p>
+        <p style="color: #9ca3af; font-size: 12px; font-style: italic;">(Bỏ trống hoặc nhập 0 để lấy toàn bộ câu hỏi trong bộ lọc)</p>
+        
+        <!-- Ô nhập số lượng câu hỏi -->
+        <input type="number" id="quiz-limit-input" placeholder="Vd: 10" min="0">
+        <br>
+        
+        <!-- Nút xử lý logic và vào phòng thi -->
+        <button class="btn-start" onclick="goToQuiz()">🚀 Vào Phòng Thi</button>
+    </div>
+
+    <script>
+        function goToQuiz() {
+            // 1. Lấy giá trị học sinh nhập vào
+            const limitValue = document.getElementById('quiz-limit-input').value;
+            const parsedLimit = parseInt(limitValue);
+
+            // 2. Lưu vào bộ nhớ tạm (sessionStorage)
+            sessionStorage.setItem('currentUser', 'Học Sinh Test');
+            
+            if (!isNaN(parsedLimit) && parsedLimit > 0) {
+                sessionStorage.setItem('quizLimit', parsedLimit);
+            } else {
+                sessionStorage.setItem('quizLimit', '0'); // 0 nghĩa là vô hạn
+            }
+
+            // 3. Chuyển hướng sang Quiz App
+            window.location.href = 'quizApp.html';
+        }
+    </script>
+
+</body>
+</html>

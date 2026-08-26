@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Thi Trắc Nghiệm & Tự Luận</title>
+    <style>
+        /* CSS cơ bản để giao diện nhìn gọn gàng, chuyên nghiệp */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .filter-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 8px;
+            margin: 5px 10px 10px 0;
+            border-radius: 4px;
+            border: 1px solid #d1d5db;
+            min-width: 150px;
+        }
+        .btn-filter {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-filter:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. KHU VỰC BỘ LỌC TÌM KIẾM CÂU HỎI -->
+    <div class="filter-box" id="filter-section">
+        <h2 style="margin-top: 0; color: #4338ca;">🔍 Chọn bài thi</h2>
+        
+        <!-- Các thẻ select có thuộc tính "multiple" để chọn được nhiều cái cùng lúc (Combo) -->
+        <select id="subject-filter" multiple></select>
+        <select id="grade-filter" multiple></select>
+        <select id="topic-filter" multiple></select>
+        <select id="level-filter" multiple></select>
+        
+        <!-- Bộ lọc Type cần hardcode vì trong JS chưa thấy hàm tự sinh ra type -->
+        <select id="type-filter" multiple>
+            <option value="all" selected>Tất cả kiểu thi</option>
+            <option value="mc">Trắc nghiệm</option>
+            <option value="w">Tự luận</option>
+        </select>
+        
+        <br>
+        <!-- Nút này gọi trực tiếp hàm handleAdvancedFilter trong file JS của bạn -->
+        <button class="btn-filter" onclick="handleAdvancedFilter()">Lọc & Tìm Câu Hỏi</button>
+    </div>
+
+    <!-- 2. KHU VỰC HIỂN THỊ CÂU HỎI VÀ ĐỒNG HỒ -->
+    <!-- Mọi giao diện bài thi sẽ được JS "nhồi" vào thẻ div này -->
+    <div id="quiz-container">
+        <div style="background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; color: #6b7280;">
+            Hãy chọn bộ lọc ở trên và bấm tìm kiếm để bắt đầu!
+        </div>
+    </div>
+
+    <!-- 3. NHÚNG JAVASCRIPT (Luôn đặt ở cuối thẻ body) -->
+    <script src="globals.js"></script>
+    <script src="quizFunction.js"></script>
+    <script src="quiz.js"></script>
+
+</body>
+</html>
