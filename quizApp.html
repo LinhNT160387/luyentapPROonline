@@ -40,6 +40,53 @@
         }
         .btn-filter:hover { background: #1d4ed8; }
     </style>
+	<!-- 1. Thư viện MathLive (Bạn đã thêm ở bước trước) -->
+	<script defer src="https://unpkg.com/mathlive"></script>
+
+<!-- CẤU HÌNH BÀN PHÍM RÚT GỌN (HỖ TRỢ ĐA TAB) -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.mathVirtualKeyboard) {
+        
+        // Cấu hình mảng layouts chứa 2 Tab khác nhau
+        window.mathVirtualKeyboard.layouts = [
+            // --- TAB 1: TOÁN CƠ BẢN ---
+            {
+                label: "Toán Cơ Bản", 
+                rows: [
+                    ["7", "8", "9", "+", "-", "\\sqrt{#0}"],
+                    ["4", "5", "6", "\\times", "\\div", "^{#?}"], // ^{#?} là nút tạo MŨ (chỉ số trên)
+                    ["1", "2", "3", "=", "\\frac{#@}{#?}", "[backspace]"],
+                    ["0", ".", "(", ")", "[left]", "[right]"]
+                ]
+            },
+            // --- TAB 2: TẬP HỢP & HÓA/HÌNH ---
+            {
+                label: "Tập hợp & Hóa/Hình",
+                rows: [
+                    // Hàng 1: Các ký hiệu tập hợp (Thuộc, Không thuộc, Tập con, Tập rỗng, Giao, Hợp)
+                    ["\\in", "\\notin", "\\subset", "\\emptyset", "\\cap", "\\cup"],
+                    
+                    // Hàng 2: Các tập hợp số (N, Z, R), Ký hiệu Góc, Tam giác, và nút TẠO CHỈ SỐ DƯỚI
+                    ["\\mathbb{N}", "\\mathbb{Z}", "\\mathbb{R}", "\\angle", "\\Delta", "_{#?}"], 
+                    
+                    // Hàng 3: Thêm vài phím chữ cái in hoa hay dùng trong Hình học
+                    ["A", "B", "C", "D", "S", "[backspace]"], 
+                    
+                    // Hàng 4: Thêm vài phím chữ cái hay dùng trong Hóa học + Mũi tên điều hướng
+                    ["H", "O", "C", "N", "S", "+", "=", "[left]", "[right]"],
+					// Hàng 5: Ký hiệu Hình học + Mũi tên Hóa học + Nút t độ + Chỉ số dưới
+					["\\angle", "\\Delta", "\\rightarrow", "t^{\\circ}", "^{\\circ}", "_{#?}"]
+                ]
+            }
+        ];
+    }
+});
+</script>
+	<!-- Thư viện KaTeX để hiển thị công thức ở khu vực Xem trước -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 </head>
 <body>
 

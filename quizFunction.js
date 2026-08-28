@@ -1,7 +1,7 @@
 /**
  * FILE GỘP CÁC FUNCTION VÀ CLASS (quizFunction.js)
- * Tổng số file gộp: 15
- * Danh sách: F_fillSelectOptions.js, F_filterQuestionsAdvanced.js, F_generateSummaryText.js, F_getQuestionTimeInSeconds.js, F_getSelectedValues.js, F_handleAdvancedFilter_quizControllerObject.js, F_initQBank.js, F_nextQuestion.js, F_populateFilters.js, F_prevQuestion.js, F_renderCurrentQuestion_quizControllerObject.js, F_saveCurrentAnswer.js, F_startActualExam.js, F_submitExam.js, class_DualQuizTimer.js
+ * Tổng số file gộp: 16
+ * Danh sách: F_fillSelectOptions.js, F_filterQuestionsAdvanced.js, F_generateSummaryText.js, F_getQuestionTimeInSeconds.js, F_getSelectedValues.js, F_handleAdvancedFilter_quizControllerObject.js, F_initQBank.js, F_nextQuestion.js, F_populateFilters.js, F_prevQuestion.js, F_renderCurrentQuestion_quizControllerObject.js, F_saveCurrentAnswer.js, F_startActualExam.js, F_submitExam.js, F_toggleLatexGuide.js, class_DualQuizTimer.js
  */
 
 // ==========================================
@@ -87,28 +87,42 @@ function filterQuestionsAdvanced(questions, criteria) {
 // ==========================================
 // FILE: F_generateSummaryText.js
 // ==========================================
-//007 Hàm hiển thị lọc đc những câu hỏi ra sao
+// ==========================================
+// FILE: F_generateSummaryText.js
+// ==========================================
 function generateSummaryText(quizList, criteria) {
     const totalCount = quizList.length;
     
-    // Lấy danh sách các lớp duy nhất có trong kết quả
-    const grades = [...new Set(quizList.map(q => q.grade))].sort((a, b) => a - b).join(' và ');
+    // 1. Lấy danh sách không trùng lặp (Unique)
+    const grades = [...new Set(quizList.map(q => q.grade))].sort((a, b) => a - b);
+    const subjects = [...new Set(quizList.map(q => q.subject))];
+    const topics = [...new Set(quizList.map(q => q.topic))];
+    const levels = [...new Set(quizList.map(q => q.level))].sort((a, b) => a - b);
     
-    // Lấy danh sách các level duy nhất
-    const levels = [...new Set(quizList.map(q => q.level))].sort((a, b) => a - b).join(', ');
-	
-    // Lấy danh sách các topics
-    const topics = [...new Set(quizList.map(q => q.topic))].sort((a, b) => a - b).join(', ');
+    // 2. Map môn học từ mã (math, physics...) sang tên tiếng Việt
+    const mappedSubjects = subjects.map(s => {
+        const rawSubject = String(s || '').toLowerCase();
+        return (typeof SUBJECT_MAP !== 'undefined' && SUBJECT_MAP[rawSubject]) ? SUBJECT_MAP[rawSubject] : s;
+    });
 
-	
-    // Thống kê loại câu hỏi
-    const hasW = quizList.some(q => !q.type || q.type === 'w');
-    const hasMc = quizList.some(q => q.type === 'mc');
-    let typeText = "Tự luận";
-    if (hasW && hasMc) typeText = "trắc nghiệm và tự luận";
-    else if (hasMc) typeText = "trắc nghiệm";
+    // 3. Phân tích loại câu hỏi
+    const hasW = quizList.some(q => !q.type || String(q.type).toLowerCase() === 'w');
+    const hasMc = quizList.some(q => String(q.type).toLowerCase() === 'mc');
+    let types = [];
+    if (hasMc) types.push("trắc nghiệm");
+    if (hasW) types.push("tự luận");
 
-    return `Bạn đã chọn ${totalCount} câu gồm lớp ${grades} ở các chủ đề gồm ${topics} đã chọn ở mức độ level ${levels} ở kiểu thi ${typeText}. Hãy bắt đầu làm bài thôi !`;
+    // 4. Lắp ráp chuỗi HTML (Căn lề trái cho danh sách để dễ đọc)
+    return `Bạn đã chọn làm <strong>${totalCount}</strong> câu trong đó gồm:<br>
+            <span style="display: inline-block; text-align: left; margin: 12px 0; line-height: 1.8;">
+                • <strong>${grades.length}</strong> khối lớp (gồm Lớp ${grades.join(', Lớp ')})<br>
+                • <strong>${mappedSubjects.length}</strong> môn học (gồm môn ${mappedSubjects.join(', ')})<br>
+                • <strong>${topics.length}</strong> chủ đề (gồm ${topics.join(', ')})<br>
+                • <strong>${levels.length}</strong> mức độ khó (gồm level ${levels.join(', level ')})<br>
+                • <strong>${types.length}</strong> hình thức thi (gồm ${types.join(' và ')})
+            </span><br>
+            <span style="color: #059669;">Nếu thấy lựa chọn đã chính xác hãy sẵn sàng và bấm bắt đầu làm bài.</span><br>
+            <span style="color: #dc2626;">Nếu cần thay đổi hãy chọn lại và bấm nút lọc lại một lần nữa nhé!</span>`;
 }
 
 // ==========================================
@@ -184,19 +198,66 @@ function handleAdvancedFilter() {
         types: getSelectedValues('type-filter') // Thêm mới trường type
     };
 
-	// 1. Lọc ra TẤT CẢ các câu thỏa mãn điều kiện
-    let matchedQuestions = filterQuestionsAdvanced(allQuestions, selectedCriteria);
+// 1. Lọc ra TẤT CẢ các câu thỏa mãn điều kiện
+let matchedQuestions = filterQuestionsAdvanced(allQuestions, selectedCriteria);
 
-    // 2. XÁO TRỘN VÀ GIỚI HẠN SỐ CÂU (Lấy từ Dashboard)
-    if (desiredQuestionCount > 0 && matchedQuestions.length > desiredQuestionCount) {
-        // Thuật toán xáo trộn ngẫu nhiên cơ bản (sẽ nâng cấp thuật toán đặc biệt sau theo ý bạn)
-        matchedQuestions = matchedQuestions.sort(() => 0.5 - Math.random());
-        // Chỉ cắt đúng số lượng câu học sinh muốn
-        currentQuizList = matchedQuestions.slice(0, desiredQuestionCount);
-    } else {
-        currentQuizList = matchedQuestions; // Nếu số câu lọc được ít hơn yêu cầu thì lấy hết
+// 2. THUẬT TOÁN CHIA GIỎ BÌNH ĐẲNG (QUOTA ALLOCATION)
+if (desiredQuestionCount > 0 && matchedQuestions.length > desiredQuestionCount) {
+    // Bước 1: Nhóm các câu hỏi vào "giỏ" dựa trên cấu trúc tổ hợp
+    const buckets = {};
+    matchedQuestions.forEach(q => {
+        // Tạo khóa định danh duy nhất cho mỗi tổ hợp
+        const key = `${q.grade}_${q.topic}_${q.level}_${q.type}`;
+        if (!buckets[key]) buckets[key] = [];
+        buckets[key].push(q);
+    });
+
+    const bucketKeys = Object.keys(buckets);
+    let numBuckets = bucketKeys.length;
+
+    // Xáo trộn thứ tự bên trong từng giỏ để đảm bảo tính ngẫu nhiên
+    bucketKeys.forEach(key => {
+        buckets[key] = buckets[key].sort(() => 0.5 - Math.random());
+    });
+
+    // Bước 2 & 3: Phân bổ đều Quota
+    let remainingToPick = desiredQuestionCount;
+    let selectedQuestions = [];
+
+    // Lặp lại việc phân bổ để bù trừ cho những giỏ không đủ câu hỏi
+    while (remainingToPick > 0 && numBuckets > 0) {
+        let baseQuota = Math.floor(remainingToPick / numBuckets);
+        let remainder = remainingToPick % numBuckets;
+
+        // Lọc các giỏ còn câu hỏi và xáo trộn để rải phần dư công bằng
+        let validKeys = bucketKeys.filter(k => buckets[k].length > 0).sort(() => 0.5 - Math.random());
+        numBuckets = validKeys.length;
+
+        if (numBuckets === 0) break; // Thoát nếu kho đã cạn
+
+        for (let i = 0; i < validKeys.length; i++) {
+            if (remainingToPick === 0) break;
+            const key = validKeys[i];
+            
+            // Lấy chỉ tiêu cơ bản + 1 câu nếu trúng phần dư
+            let quotaForThisBucket = baseQuota + (i < remainder ? 1 : 0);
+
+            // Chỉ lấy tối đa số câu mà giỏ đang có
+            let available = buckets[key].length;
+            let pickCount = Math.min(quotaForThisBucket, available);
+
+            // Cắt câu hỏi từ giỏ chuyển vào mảng kết quả
+            selectedQuestions = selectedQuestions.concat(buckets[key].splice(0, pickCount));
+            remainingToPick -= pickCount;
+        }
     }
-	
+
+    // Bước 4: Xáo trộn mảng tổng lần cuối trước khi giao cho học sinh
+    currentQuizList = selectedQuestions.sort(() => 0.5 - Math.random());
+} else {
+    // Nếu số câu lọc được ít hơn giới hạn desiredQuestionCount[cite: 3] thì lấy hết
+    currentQuizList = matchedQuestions;
+}	
     const container = document.getElementById('quiz-container');
     if (!container) return;
     container.innerHTML = '';
@@ -294,22 +355,21 @@ function prevQuestion() {
 // ==========================================
 // FILE: F_renderCurrentQuestion_quizControllerObject.js
 // ==========================================
-// ==========================================
-// FILE: F_renderCurrentQuestion.js (Thay thế hàm cũ)
-// ==========================================
+
 function renderCurrentQuestion() {
     const container = document.getElementById('quiz-container');
     if (!container) return;
 
     const q = currentQuizList[currentQuestionIndex];
     const totalQuestions = currentQuizList.length;
-    const savedAnswer = studentAnswers[q.id] || '';
-	const rawSubject = String(q.subject || '').toLowerCase();
-	const displaySubject = SUBJECT_MAP[rawSubject] || q.subject || 'N/A';
-	
-	// --- XỬ LÝ PHẦN MEDIA ---
+    
+    // Nếu là câu hỏi trắc nghiệm (mc), ta sẽ có biến lưu đáp án người dùng đã chọn
+    let savedAnswer = studentAnswers[q.id] || '';
+    const rawSubject = String(q.subject || '').toLowerCase();
+    const displaySubject = SUBJECT_MAP[rawSubject] || q.subject || 'N/A';
+    
+    // --- XỬ LÝ PHẦN MEDIA ---
     let mediaHtml = '<div class="media-container" style="margin: 15px 0;">';
-	// (Đoạn mã if (q.media)... của bạn xử lý Ảnh/Video/Audio giữ nguyên như cũ, tôi rút gọn để dễ nhìn)
     if (q.media && Array.isArray(q.media) && q.media.length > 0) {
         q.media.forEach(m => {
             if (m.type === 'image') mediaHtml += `<img src="${m.url}" alt="Question Image" loading="lazy" style="max-width: 100%; height: auto; border-radius: 6px; display: block; margin-top: 10px;">`;
@@ -326,18 +386,131 @@ function renderCurrentQuestion() {
     
     currentQuizList.forEach((qItem, i) => {
         let isCurrent = (i === currentQuestionIndex);
-        let hasAnswered = (studentAnswers[qItem.id] && studentAnswers[qItem.id].trim() !== ''); // Đã nhập chữ
+        let hasAnswered = (studentAnswers[qItem.id] && studentAnswers[qItem.id].trim() !== ''); 
         
         let bgColor = '#e5e7eb'; let textColor = '#374151'; let border = '1px solid #d1d5db';
-        if (isCurrent) { bgColor = '#3b82f6'; textColor = '#ffffff'; border = '1px solid #2563eb'; } // Câu hiện tại: Màu Xanh Dương
-        else if (hasAnswered) { bgColor = '#10b981'; textColor = '#ffffff'; border = '1px solid #059669'; } // Đã làm: Xanh lá
+        if (isCurrent) { bgColor = '#3b82f6'; textColor = '#ffffff'; border = '1px solid #2563eb'; } 
+        else if (hasAnswered) { bgColor = '#10b981'; textColor = '#ffffff'; border = '1px solid #059669'; } 
 
         navHtml += `<button class="nav-jump-btn" onclick="QuizController.jumpTo(${i})" style="width: 35px; height: 35px; border-radius: 4px; cursor: pointer; font-weight: bold; background: ${bgColor}; color: ${textColor}; border: ${border}; transition: 0.2s;">${i + 1}</button>`;
     });
     navHtml += '</div>';
-    // -----------------------------------
-	
-    // Xây dựng giao diện hiển thị hoàn chỉnh
+
+    // --- TÁCH ĐÁP ÁN TRẮC NGHIỆM VÀ PHẦN TRẢ LỜI CỦA HỌC SINH ---
+    let answerAreaHtml = '';
+    let questionText = q.content || ''; // Đoạn text sẽ hiển thị làm câu hỏi chính
+
+    // Kiểm tra nếu là câu hỏi trắc nghiệm (mc)
+    if (String(q.type).toLowerCase() === 'mc') {
+        
+		// 1. Nới lỏng an toàn: Bắt buộc phải là đầu dòng mới (\n) để tránh nhầm với điểm hình học.
+        // Hỗ trợ chữ thường (a, b, c, d), chữ hoa (A, B, C, D) và dấu ngoặc đơn ( A) )
+        const optionsRegex = /(?:^|\n)\s*([A-Da-d])[.)]\s+(.*?)(?=(?:\n\s*[A-Da-d][.)]\s+|$))/gs;
+
+        let match;
+        const extractedOptions = [];
+        let firstOptionIndex = questionText.length; 
+
+        while ((match = optionsRegex.exec(questionText)) !== null) {
+            extractedOptions.push({
+            key: match[1].toUpperCase(), // Tự động quy đổi a,b,c,d thành A,B,C,D in hoa để không lỗi UI
+            text: match[2].trim()
+            });
+            if (match.index < firstOptionIndex) {
+                firstOptionIndex = match.index;
+            }
+        }
+        // Nếu tìm thấy đáp án dạng A., B., C., D.
+        if (extractedOptions.length > 0) {
+            // Cắt nội dung câu hỏi (bỏ phần đáp án đi)
+            questionText = questionText.substring(0, firstOptionIndex).trim();
+
+            // 2. Xây dựng giao diện click chọn (Dạng radio button hoặc thẻ div bấm được)
+            answerAreaHtml += '<div class="mc-options-container" style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">';
+            
+            extractedOptions.forEach(opt => {
+                // Kiểm tra xem đáp án này có đang được học sinh chọn trước đó không
+                const isSelected = (savedAnswer === opt.key);
+                const bgStyle = isSelected ? 'background-color: #dbeafe; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);' : 'background-color: #ffffff; border-color: #d1d5db;';
+                const textWeight = isSelected ? 'font-weight: bold; color: #1e40af;' : 'font-weight: normal; color: #374151;';
+                
+                answerAreaHtml += `
+                    <div onclick="QuizController.selectMcOption('${q.id}', '${opt.key}')" 
+                         style="cursor: pointer; padding: 12px 15px; border-radius: 6px; border: 1px solid #d1d5db; display: flex; align-items: flex-start; transition: all 0.2s; ${bgStyle}">
+                        <div style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 2px solid ${isSelected ? '#3b82f6' : '#9ca3af'}; margin-right: 12px; display: flex; align-items: center; justify-content: center; background-color: ${isSelected ? '#3b82f6' : 'transparent'};">
+                            <span style="color: ${isSelected ? 'white' : 'transparent'}; font-size: 14px;">✓</span>
+                        </div>
+                        <div style="flex-grow: 1; line-height: 1.5; ${textWeight}">
+                            <strong>${opt.key}.</strong> ${opt.text}
+                        </div>
+                    </div>
+                `;
+            });
+            answerAreaHtml += '</div>';
+            
+            // Xóa rỗng text area bị ẩn vì là câu trắc nghiệm
+            answerAreaHtml += `<textarea id="student-answer-input" style="display: none;">${savedAnswer}</textarea>`;
+            
+        } else {
+            // Nếu type là "mc" nhưng content không có dạng "A. B. C. D.", hiển thị input bình thường đề phòng lỗi data
+            answerAreaHtml = `
+                <div style="margin-top: 20px;">
+                    <textarea id="student-answer-input" oninput="QuizController.saveInput('${q.id}')" placeholder="Có lỗi định dạng data, hãy nhập đáp án của bạn..." style="width: 100%; height: 120px; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 14px; box-sizing: border-box;">${savedAnswer}</textarea>
+                </div>`;
+        }
+    } 
+// Mặc định là Tự luận (type "w" hoặc không xác định)
+    else {
+        const isMathSubject = ['math', 'physics', 'chemistry'].includes(String(q.subject).toLowerCase());
+        
+        if (isMathSubject) {
+            // GIAO DIỆN SOẠN THẢO TỰ LUẬN CHUYÊN NGHIỆP (LIVE PREVIEW)
+            answerAreaHtml = `
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        
+                        <!-- Cột Trái: Khu vực nhập liệu -->
+                        <div style="flex: 1; min-width: 300px;">						
+						<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+							<label style="font-size: 14px; color: #4b5563; font-weight: bold;">1. Khung soạn thảo (Viết chữ tại đây):</label>
+							<button onclick="toggleLatexGuide()" style="background: none; border: none; color: #2563eb; text-decoration: underline; cursor: pointer; font-size: 13px; font-weight: bold; padding: 0;">💡 Bảng gõ nhanh LaTeX</button>
+						</div>
+						                           
+                            <!-- Bổ sung hàm updatePreview() để màn hình bên cạnh tự động cập nhật khi gõ chữ -->
+                            <textarea id="student-answer-input" oninput="QuizController.saveInput('${q.id}'); updatePreview();" placeholder="Ví dụ: Áp dụng định lý Pytago ta có..." style="width: 100%; height: 150px; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-family: sans-serif; box-sizing: border-box; line-height: 1.5; resize: vertical;">${savedAnswer}</textarea>
+                            
+                            <div style="margin-top: 10px; background: #eef2ff; padding: 12px; border-radius: 6px; border: 1px solid #c7d2fe;">
+                                <label style="font-size: 13px; color: #4338ca; font-weight: bold; margin-bottom: 8px; display: block;">🛠 Lắp ráp công thức (Bấm vào ô dưới để tạo):</label>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <math-field id="math-helper" style="flex: 1; font-size: 18px; padding: 5px; border-radius: 4px; border: 1px solid #93c5fd; background: #fff;" virtual-keyboard-mode="manual"></math-field>
+                                    <button onclick="insertFormula()" style="background: #4f46e5; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap;">Chèn ➡️</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cột Phải: Khu vực Xem trước -->
+                        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column;">
+                            <label style="font-size: 14px; color: #4b5563; font-weight: bold; margin-bottom: 8px; display: block;">2. Xem trước bài làm (Hiển thị thực tế):</label>
+                            <div id="student-answer-preview" style="flex: 1; width: 100%; min-height: 150px; padding: 15px; border-radius: 6px; border: 1px solid #d1d5db; background: #f9fafb; overflow-y: auto; box-sizing: border-box; line-height: 1.6; white-space: pre-wrap; color: #1f2937;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            `;
+
+            // Kích hoạt render preview lần đầu (phòng khi học sinh quay lại câu cũ đã có đáp án)
+            setTimeout(() => { updatePreview(); }, 100);
+
+        } else {
+            // Môn bình thường (Văn, Anh...) giữ nguyên 1 ô Textarea
+            answerAreaHtml = `
+                <div style="margin-top: 20px;">
+                    <textarea id="student-answer-input" oninput="QuizController.saveInput('${q.id}')" placeholder="Nhập câu trả lời của bạn vào đây..." style="width: 100%; height: 120px; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 14px; box-sizing: border-box;">${savedAnswer}</textarea>
+                </div>
+            `;
+        }
+    }
+    // --- HIỂN THỊ GIAO DIỆN ---
     container.innerHTML = `
         <div style="background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             
@@ -356,17 +529,17 @@ function renderCurrentQuestion() {
                 <span style="background:#eef2ff; color:#4338ca; padding:3px 6px; border-radius:4px; font-weight:bold; font-size:11px; margin-right:4px;">Môn: ${displaySubject}</span>
                 <span style="background:#ecfdf5; color:#065f46; padding:3px 6px; border-radius:4px; font-weight:bold; font-size:11px; margin-right:4px;">Lớp ${q.grade || '?'}</span>
                 <span style="background:#fef3c7; color:#92400e; padding:3px 6px; border-radius:4px; font-weight:bold; font-size:11px; margin-right:4px;">Level ${q.level}</span>
-				<span style="background:#e5e7eb; color:#1f2937; padding:3px 6px; border-radius:4px; font-family: monospace; font-size:11px;">qID ${q.id}</span>
-                <span style="background:#f3f4f6; color:#374151; padding:3px 6px; border-radius:4px; font-size:11px;">Loại: ${q.type || 'Tự Luận'}</span>
+                <span style="background:#e5e7eb; color:#1f2937; padding:3px 6px; border-radius:4px; font-family: monospace; font-size:11px;">qID ${q.id}</span>
+                <span style="background:#f3f4f6; color:#374151; padding:3px 6px; border-radius:4px; font-size:11px;">Loại: ${String(q.type).toUpperCase() === 'MC' ? 'Trắc Nghiệm' : 'Tự Luận'}</span>
             </div>
 
-            <p style="font-size: 16px; font-weight: 500; color: #1f2937; line-height: 1.5;">${q.content}</p>
+            <!-- CHÈN NỘI DUNG CÂU HỎI (ĐÃ CẮT BỎ ĐÁP ÁN) -->
+            <p style="font-size: 16px; font-weight: 500; color: #1f2937; line-height: 1.5; white-space: pre-wrap;">${questionText}</p>
 
             ${mediaHtml}
 
-            <div style="margin-top: 20px;">
-                <textarea id="student-answer-input" oninput="QuizController.saveInput('${q.id}')" placeholder="Nhập câu trả lời của bạn vào đây..." style="width: 100%; height: 120px; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 14px; box-sizing: border-box;">${savedAnswer}</textarea>
-            </div>
+            <!-- CHÈN KHU VỰC TRẢ LỜI (TRẮC NGHIỆM / TỰ LUẬN) -->
+            ${answerAreaHtml}
 
             <div style="margin-top: 10px;">
                 <button onclick="toggleHint('hint_${q.id}')" style="background: #f3f4f6; border: 1px solid #d1d5db; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">💡 Xem Gợi ý Giải</button>
@@ -383,6 +556,63 @@ function renderCurrentQuestion() {
         </div>
     `;	
 }
+// --- CÁC HÀM HỖ TRỢ GIAO DIỆN TỰ LUẬN CHUYÊN NGHIỆP ---
+
+// 1. Hàm cập nhật màn hình Xem trước (Live Preview)
+window.updatePreview = function() {
+    const preview = document.getElementById('student-answer-preview');
+    // Lấy ID câu hỏi hiện tại từ mảng tổng
+    const currentQId = currentQuizList[currentQuestionIndex].id;
+    // Lấy đáp án đã lưu, nếu chưa có thì chuỗi rỗng
+    const currentText = studentAnswers[currentQId] || ''; 
+    
+    if (preview) {
+        // Đưa text vào ô preview
+        preview.textContent = currentText; 
+        
+        // Gọi KaTeX để vẽ công thức
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(preview, {
+                delimiters: [
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    }
+};
+
+// 2. Hàm chèn công thức từ Bàn phím ảo lên khung chữ
+window.insertFormula = function() {
+    const mathHelper = document.getElementById('math-helper');
+    const input = document.getElementById('student-answer-input');
+    const currentQId = currentQuizList[currentQuestionIndex].id;
+    
+    if (mathHelper && input && mathHelper.value.trim() !== '') {
+        const latex = ' \\( ' + mathHelper.value + ' \\) ';
+        
+        const startPos = input.selectionStart;
+        const endPos = input.selectionEnd;
+        const textBefore = input.value.substring(0, startPos);
+        const textAfter = input.value.substring(endPos, input.value.length);
+        
+        // 1. Chèn công thức vào ô Textarea
+        input.value = textBefore + latex + textAfter;
+        
+        // 2. Gọi hàm LƯU ĐÁP ÁN
+        saveCurrentAnswer(currentQId);
+        
+        // 3. Xóa ô toán để nhập công thức mới
+        mathHelper.value = ''; 
+        
+        // 4. Báo hệ thống vẽ lại màn hình Preview
+        updatePreview();
+        
+        // Đặt con trỏ chuột về đúng vị trí sau khi chèn
+        input.focus();
+        input.selectionEnd = startPos + latex.length;
+    }
+};
 
 // ==========================================
 // FILE: F_saveCurrentAnswer.js
@@ -394,6 +624,7 @@ function saveCurrentAnswer(questionId) {
         studentAnswers[questionId] = inputElem.value;
     }
 }
+
 
 // ==========================================
 // FILE: F_startActualExam.js
@@ -465,6 +696,50 @@ function submitExam(isAutoSubmit = false) {
         }
     }, 2000);
 }
+
+// ==========================================
+// FILE: F_toggleLatexGuide.js
+// ==========================================
+// 3. Hàm bật/tắt Bảng tra cứu LaTeX (Popup)
+window.toggleLatexGuide = function() {
+    let modal = document.getElementById('latex-guide-modal');
+    
+    // Nếu Popup chưa tồn tại thì tạo mới
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'latex-guide-modal';
+        // CSS làm mờ nền xung quanh và căn giữa cửa sổ
+        modal.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;";
+        
+        // Cấu trúc bảng tra cứu
+        modal.innerHTML = `
+            <div style="background: #fff; width: 90%; max-width: 500px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden;">
+                <div style="background: #4338ca; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 16px;">💡 Bảng Tra Cứu Phím Tắt LaTeX</h3>
+                    <button onclick="document.getElementById('latex-guide-modal').style.display='none'" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; font-weight: bold;">&times;</button>
+                </div>
+                <div style="padding: 20px; max-height: 60vh; overflow-y: auto; font-size: 14px; line-height: 1.6; color: #374151;">
+                    <p style="margin-top: 0;"><i>Lưu ý: Bạn cần bọc công thức trong cặp dấu <b>\\(</b> và <b>\\)</b> để hệ thống nhận diện. Ví dụ: <b>\\( x^2 \\)</b></i></p>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                        <tr style="background: #f3f4f6; text-align: left;"><th style="padding: 8px; border: 1px solid #d1d5db;">Ký hiệu</th><th style="padding: 8px; border: 1px solid #d1d5db;">Cách gõ</th></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Phân số (a/b)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">\\frac{a}{b}</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Số mũ ($x^2$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">x^2</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Chỉ số dưới ($H_2O$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">H_2O</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Căn bậc hai ($\\sqrt{x}$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">\\sqrt{x}</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Góc ($\\angle ABC$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">\\angle ABC</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Độ ($100^\\circ$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">100^\\circ</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Thuộc ($\\in$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">\\in</td></tr>
+                        <tr><td style="padding: 8px; border: 1px solid #d1d5db;">Mũi tên ($\\rightarrow$)</td><td style="padding: 8px; border: 1px solid #d1d5db; font-family: monospace; color: #dc2626;">\\rightarrow</td></tr>
+                    </table>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    } else {
+        // Nếu đã tạo rồi thì chỉ cần bật nó lên
+        modal.style.display = 'flex';
+    }
+};
 
 // ==========================================
 // FILE: class_DualQuizTimer.js
